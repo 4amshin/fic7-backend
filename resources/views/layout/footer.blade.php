@@ -4,6 +4,6 @@
         <script>
             document.write(new Date().getFullYear());
         </script>
-        SIPEB2M
+        FIC7
     </div>
 </div>

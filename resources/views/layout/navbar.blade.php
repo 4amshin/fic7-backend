@@ -26,33 +26,25 @@
     <ul class="navbar-nav flex-row align-items-center ms-auto">
         <!-- User -->
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
-            @php
-                // Query untuk mendapatkan gambar profil dari tabel 'pengguna' berdasarkan email pengguna yang sedang login
-                $email = auth()->user()->email;
-                $pengguna = \App\Models\Pengguna::where('email', $email)->first();
-                $gambarProfil = $pengguna->gambar_profil
-                    ? asset('storage/profil/'.$pengguna->gambar_profil)
-                    : asset('assets/img/baju-kosong.png');
-            @endphp
             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                 <div class="avatar avatar-online">
-                    <img src="{{ $gambarProfil }}" alt class="w-px-40 rounded-circle fill-box" />
+                    <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 rounded-circle fill-box" />
                 </div>
             </a>
 
             <ul class="dropdown-menu dropdown-menu-end">
                 <!--Nama & Role-->
                 <li>
-                    <a class="dropdown-item" href="{{ route('pengguna.profile') }}">
+                    <a class="dropdown-item" href="">
                         <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
                                 <div class="avatar avatar-online">
-                                    <img src="{{ $gambarProfil }}" alt class="w-px-40 rounded-circle fill-box" />
+                                    <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 rounded-circle fill-box" />
                                 </div>
                             </div>
                             <div class="flex-grow-1">
                                 <span class="fw-semibold d-block">{{ auth()->user()->name }}</span>
-                                <small class="text-muted">{{ auth()->user()->role }}</small>
+                                <small class="text-muted">{{ auth()->user()->email }}</small>
                             </div>
                         </div>
                     </a>
@@ -65,7 +57,7 @@
 
                 <!--Profil-->
                 <li>
-                    <a class="dropdown-item" href="{{ route('pengguna.profile') }}">
+                    <a class="dropdown-item" href="">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">Profil</span>
                     </a>

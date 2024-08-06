@@ -13,24 +13,13 @@
                     <div class="col-sm-7">
                         <div class="card-body">
 
-                            {{-- Menampilkan pesan selamat datang sesuai dengan peran pengguna --}}
-                            @php
-                                $user = auth()->user();
-                                $name = $user->name;
-                                if ($user->role === 'admin') {
-                                    $role = 'Admin';
-                                } else {
-                                    $role = 'Pengguna';
-                                }
-                            @endphp
-
-                            <h5 class="card-title text-primary">Selamat Datang {{ $name }}! 🎉</h5>
+                            <h5 class="card-title text-primary">Selamat Datang {{ auth()->user()->name }}! 🎉</h5>
                             <p class="mb-4">
                                 Lengkapi Profil anda untuk melakukan penyewaan, klik tombol 'Lihat Profil' dibawah ini untuk
                                 melengkapi profil.
                             </p>
 
-                            <a href="{{ route('pengguna.profile') }}" class="btn btn-sm btn-outline-primary">Lihat Profil</a>
+                            <a href="" class="btn btn-sm btn-outline-primary">Lihat Profil</a>
                         </div>
                     </div>
 
