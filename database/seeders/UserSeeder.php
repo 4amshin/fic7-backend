@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'name' => 'Admin FIC7',
             'email' => 'admin@fic7.id',
+            'role' => 'admin',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
         ]);

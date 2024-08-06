@@ -35,7 +35,7 @@
             <ul class="dropdown-menu dropdown-menu-end">
                 <!--Nama & Role-->
                 <li>
-                    <a class="dropdown-item" href="">
+                    <a class="dropdown-item" href="{{ route('user.profile') }}">
                         <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
                                 <div class="avatar avatar-online">
@@ -57,7 +57,7 @@
 
                 <!--Profil-->
                 <li>
-                    <a class="dropdown-item" href="">
+                    <a class="dropdown-item" href="{{ route('user.profile') }}">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">Profil</span>
                     </a>

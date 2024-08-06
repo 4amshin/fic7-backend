@@ -11,14 +11,14 @@
             <div class="card mb-4">
                 <h5 class="card-header">Biodata Pengguna</h5>
                 <!--FORM-->
-                <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+                <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <!-- Foto Profil -->
                     <div class="card-body">
                         <div class="d-flex align-items-start align-items-sm-center gap-4">
                             <!-- Foto -->
-                            <img src="{{ $pengguna->gambar_profil ? asset('storage/profil/' . $pengguna->gambar_profil) : asset('assets/img/baju-kosong.png') }}"
+                            <img src="{{ $user->profile_img ? asset('storage/profile/' . $user->profile_img) : asset('assets/img/avatars/1.png') }}"
                                 alt="user-avatar" class="d-block rounded fill-box" height="100" width="100"
                                 id="uploadedAvatar" />
 
@@ -54,31 +54,14 @@
                                 <div class="mb-3 col-md-6">
                                     <label for="nama" class="form-label">Nama</label>
                                     <input class="form-control" type="text" id="nama" name="nama"
-                                        value="{{ $pengguna->nama }}" autofocus />
-                                </div>
-
-                                <!--Jenis Kelamin-->
-                                <div class="mb-3 col-md-6">
-                                    <small class="text-light fw-semibold d-block">Jenis Kelamin</small>
-                                    <div class="form-check form-check-inline mt-3">
-                                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="laki-laki"
-                                            value="laki-laki"
-                                            {{ $pengguna->jenis_kelamin == 'laki-laki' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="laki-laki">Laki-Laki</label>
-                                    </div>
-                                    <div class="form-check form-check-inline mt-3">
-                                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="perempuan"
-                                            value="perempuan"
-                                            {{ $pengguna->jenis_kelamin == 'perempuan' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="perempuan">Perempuan</label>
-                                    </div>
+                                        value="{{ $user->name }}" autofocus />
                                 </div>
 
                                 <!-- Email -->
                                 <div class="mb-3 col-md-6">
                                     <label for="email" class="form-label">Email</label>
                                     <input class="form-control" type="text" id="email"
-                                        placeholder="Readonly input here..." value="{{ $pengguna->email }}" readonly="">
+                                        placeholder="Readonly input here..." value="{{ $user->email }}" readonly="">
                                 </div>
 
                                 <!-- Nomor Telepon -->
@@ -87,15 +70,15 @@
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text">ID |</span>
                                         <input type="text" id="nomor_telepon" name="nomor_telepon" class="form-control"
-                                            value="{{ $pengguna->nomor_telepon }}" />
+                                            value="{{ $user->phone }}" />
                                     </div>
                                 </div>
 
-                                <!-- Aalamat -->
-                                <div class="mb-3 col-md-12">
-                                    <label for="alamat" class="form-label">Alamat</label>
+                                <!-- Bio -->
+                                <div class="mb-3 col-md-6">
+                                    <label for="alamat" class="form-label">Bio</label>
                                     <input type="text" class="form-control" id="alamat" name="alamat"
-                                        value="{{ $pengguna->alamat }}" />
+                                        value="{{ $user->bio }}" />
                                 </div>
                             </div>
 
@@ -119,7 +102,7 @@
             const uploadInput = document.getElementById('upload');
             const resetButton = document.querySelector('.account-image-reset');
             const defaultAvatarSrc =
-                "{{ $pengguna->gambar_profil ? asset('storage/public/'.$pengguna->gambar_profil) : asset('assets/img/baju-kosong.png') }}";
+                "{{ $user->profile_img ? asset('storage/profile/' . $user->profile_img) : asset('assets/img/avatars/1.png') }}";
 
             // Handle image upload
             uploadInput.addEventListener('change', function(event) {

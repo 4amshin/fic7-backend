@@ -13,11 +13,13 @@
         </a>
     </li>
 
-    <!-- Pengguna -->
-    <li class="menu-item {{ Request::is('pengguna*') ? 'active' : '' }}">
-        <a href="" class="menu-link">
-            <i class='menu-icon tf-icons bx bxs-user'></i>
-            <div data-i18n="Analytics">Pengguna</div>
-        </a>
-    </li>
+    @can('super-user')
+        <!-- Pengguna -->
+        <li class="menu-item {{ Request::is('pengguna*') ? 'active' : '' }}">
+            <a href="" class="menu-link">
+                <i class='menu-icon tf-icons bx bxs-user'></i>
+                <div data-i18n="Analytics">Pengguna</div>
+            </a>
+        </li>
+    @endcan
 </ul>

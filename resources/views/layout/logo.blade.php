@@ -1,6 +1,6 @@
 <!--Logo-->
 <div class="app-brand justify-content-center demo">
-    <a href="" class="app-brand-link">
+    <a href="{{ route('home') }}" class="app-brand-link">
         <span class="app-brand-logo demo">
             <img src="{{ asset('assets/img/logo.svg') }}" alt="Logo Website" width="100">
         </span>

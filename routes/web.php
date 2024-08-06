@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -16,5 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     })->name('home');
 
     /*----------------------------------------USER--------------------------------------*/
+    // Route::post('profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
+    Route::get('profile', [UserController::class, 'profile'])->name('user.profile');
 });
 
