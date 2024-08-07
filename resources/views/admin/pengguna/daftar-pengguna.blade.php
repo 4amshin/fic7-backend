@@ -9,60 +9,46 @@
     <!-- Tabel -->
     <div class="card">
         <div class="float-left p-3">
-            <a href="{{ route('pengguna.create') }}" class="btn btn-primary"> Tambah Pengguna</a>
+            <a href="{{ route('user.create') }}" class="btn btn-primary"> Tambah Pengguna</a>
         </div>
         <div class="table-responsive text-nowrap">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th class="text-center">Foto Profil</th>
+                        {{-- <th>No</th> --}}
+                        <th class="text-center">Foto</th>
                         <th>Nama</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Nomor Telepon</th>
-                        <th>Alamat</th>
                         <th>Email</th>
-                        <th>Password</th>
+                        <th>Nomor Telepon</th>
                         @can('super-user')
                             <th>Aksi</th>
                         @endcan
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                    @forelse ($daftarPengguna as $index => $pengguna)
+                    @forelse ($daftarPengguna as $index => $user)
                         <tr>
-                            <td>
+                            {{-- <td>
                                 {{ $index + $daftarPengguna->firstItem() }}
-                            </td>
-                            <td class="align-center">
+                            </td> --}}
+                            <td class="text-center d-flex justify-content-center">
                                 <div class="avatar">
-                                    <img src="{{ $pengguna->gambar_profil ? asset('storage/profil/' . $pengguna->gambar_profil) : asset('assets/img/baju-kosong.png') }}"
-                                        alt class="w-px-40 rounded-circle fill-box w-p"/>
+                                    <img src="{{ $user->profile_img ? asset('storage/profile/' . $user->profile_img) : asset('assets/img/avatars/1.png') }}"
+                                        alt class="w-px-40 rounded-circle fill-box w-p" />
                                 </div>
-                                {{-- <img src="{{ $pengguna->gambar_profil ? asset('storage/profil/' . $pengguna->gambar_profil) : asset('assets/img/baju-kosong.png') }}"
-                                    alt="Avatar" class="rounded-circle fill-box" width="50px"> --}}
                             </td>
                             <td>
                                 <strong>
-                                    {{ $pengguna->nama }}
+                                    {{ $user->name }}
                                 </strong>
                             </td>
                             <td>
-                                {{ $pengguna->jenis_kelamin == 'laki-laki' ? 'Laki Laki' : 'Perempuan' }}
+                                {{ $user->email }}
                             </td>
                             <td>
                                 <span class="badge bg-label-info me-1">
-                                    {{ $pengguna->nomor_telepon }}
+                                    {{ $user->phone }}
                                 </span>
-                            </td>
-                            <td>
-                                {{ $pengguna->alamat }}
-                            </td>
-                            <td>
-                                {{ $pengguna->email }}
-                            </td>
-                            <td>
-                                {{ $pengguna->password }}
                             </td>
                             @can('super-user')
                                 <td>
@@ -73,12 +59,12 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             <!--Tombol Update-->
-                                            <a href="{{ route('pengguna.edit', $pengguna->id) }}" class="dropdown-item">
+                                            <a href="{{ route('user.edit', $user->id) }}" class="dropdown-item">
                                                 <i class="bx bx-edit-alt me-1"></i> Edit
                                             </a>
 
                                             <!--Tombol Hapus-->
-                                            <form action="{{ route('pengguna.destroy', $pengguna->id) }}" method="POST">
+                                            <form action="{{ route('user.destroy', $user->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="dropdown-item">

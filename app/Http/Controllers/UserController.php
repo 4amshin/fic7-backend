@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,9 +14,15 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $daftarPengguna = User::when($request->input('search'), function($query, $search) {
+            $query->where('name', 'like', '%' . $search . '%')
+            ->orWhere('email', 'like', '%' . $search . '%')
+            ->orWhere('phone', 'like', '%' . $search . '%');
+        })->orderBy('created_at', 'desc')->paginate(5);
+
+        return view('admin.pengguna.daftar-pengguna', compact('daftarPengguna'))->with('showNavbar', true);
     }
 
     public function profile()
@@ -69,15 +76,21 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pengguna.tambah-pengguna')->with('showNavbar', true);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        $validatedData = $request->validated();
+
+        $validatedData['password'] = Hash::make($validatedData['unhashed_password']);
+
+        User::create($validatedData);
+
+        return redirect()->route('user.index')->with('success', 'User Added');
     }
 
     /**
@@ -93,7 +106,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('admin.pengguna.update-pengguna', compact('user'));
     }
 
     /**
@@ -109,6 +122,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()->route('user.index')->with('info', 'User Deleted');
     }
 }

@@ -17,6 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     })->name('home');
 
     /*----------------------------------------USER--------------------------------------*/
+    Route::resource('user', UserController::class);
     Route::post('profile/update/{user}', [UserController::class, 'updateProfile'])->name('profile.update');
     Route::get('profile', [UserController::class, 'profile'])->name('user.profile');
 });
