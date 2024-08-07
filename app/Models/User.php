@@ -24,6 +24,7 @@ class User extends Authenticatable
         'phone',
         'bio',
         'profile_img',
+        'unhashed_password',
         'password',
     ];
 

@@ -58,10 +58,21 @@
                                 </div>
 
                                 <!-- Email -->
-                                <div class="mb-3 col-md-6">
+                                <div class="mb-3 col-md-3">
                                     <label for="email" class="form-label">Email</label>
                                     <input class="form-control" type="text" id="email"
                                         placeholder="Readonly input here..." value="{{ $user->email }}" readonly="">
+                                </div>
+
+                                <!-- Password -->
+                                <div class="mb-3 col-md-3 form-password-toggle">
+                                    <label for="unhashed_password" class="form-label">Password</label>
+                                    <div class="input-group input-group-merge">
+                                        <input type="password" id="unhashed_password" class="form-control" name="unhashed_password"
+                                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                            aria-describedby="unhashed_password" value="{{ $user->unhashed_password }}" />
+                                        <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                    </div>
                                 </div>
 
                                 <!-- Nomor Telepon -->

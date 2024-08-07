@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -55,6 +56,8 @@ class UserController extends Controller
         }
 
         // Memperbarui informasi pengguna dengan data yang divalidasi
+        $validatedData['password'] = Hash::make($validatedData['unhashed_password']);
+        // dd($validatedData);
         $user->update($validatedData);
 
         // Mengarahkan kembali ke halaman sebelumnya dengan pesan sukses

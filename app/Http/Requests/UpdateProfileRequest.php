@@ -23,6 +23,8 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'unhashed_password' => 'nullable|string',
+            'password' => 'nullable|string',
             'phone' => 'nullable|string|max:255',
             'bio' => 'nullable|string|max:255',
             'profile_img' => 'nullable|image|mimes:jpeg,png,jpg',

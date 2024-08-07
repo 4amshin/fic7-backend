@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@fic7.id',
             'role' => 'admin',
             'email_verified_at' => now(),
+            'unhashed_password' => 'password',
             'password' => Hash::make('password'),
         ]);
 
