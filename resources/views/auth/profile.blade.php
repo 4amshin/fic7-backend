@@ -11,7 +11,7 @@
             <div class="card mb-4">
                 <h5 class="card-header">Biodata Pengguna</h5>
                 <!--FORM-->
-                <form action="" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('profile.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <!-- Foto Profil -->
@@ -29,7 +29,7 @@
                                     <span class="d-none d-sm-block">Upload Foto Baru</span>
                                     <i class="bx bx-upload d-block d-sm-none"></i>
                                     <input type="file" id="upload" class="account-file-input" hidden
-                                        accept="image/png, image/jpeg, image/jpg," name="gambar_profil" />
+                                        accept="image/png, image/jpeg, image/jpg," name="profile_img" />
                                 </label>
 
                                 <!-- Reset -->
@@ -52,8 +52,8 @@
 
                                 <!-- Nama -->
                                 <div class="mb-3 col-md-6">
-                                    <label for="nama" class="form-label">Nama</label>
-                                    <input class="form-control" type="text" id="nama" name="nama"
+                                    <label for="name" class="form-label">Nama</label>
+                                    <input class="form-control" type="text" id="name" name="name"
                                         value="{{ $user->name }}" autofocus />
                                 </div>
 
@@ -66,18 +66,18 @@
 
                                 <!-- Nomor Telepon -->
                                 <div class="mb-3 col-md-6">
-                                    <label class="form-label" for="nomor_telepon">Nomor Telepon</label>
+                                    <label class="form-label" for="phone">Nomor Telepon</label>
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text">ID |</span>
-                                        <input type="text" id="nomor_telepon" name="nomor_telepon" class="form-control"
+                                        <input type="text" id="phone" name="phone" class="form-control"
                                             value="{{ $user->phone }}" />
                                     </div>
                                 </div>
 
                                 <!-- Bio -->
                                 <div class="mb-3 col-md-6">
-                                    <label for="alamat" class="form-label">Bio</label>
-                                    <input type="text" class="form-control" id="alamat" name="alamat"
+                                    <label for="bio" class="form-label">Bio</label>
+                                    <input type="text" class="form-control" id="bio" name="bio"
                                         value="{{ $user->bio }}" />
                                 </div>
                             </div>

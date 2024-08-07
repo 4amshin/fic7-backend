@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -24,49 +26,40 @@ class UserController extends Controller
         return view('auth.profile', compact('user'));
     }
 
-    // public function updateProfile(Request $request, User $user)
-    // {
+    public function updateProfile(UpdateProfileRequest $request, User $user)
+    {
+        $validatedData = $request->validated();
+        // Mengambil foto profil lama untuk kemungkinan penghapusan setelah pembaruan
+        $oldFoto = $user->profile_img;
+        $gambarProfil = $request->file('profile_img');
 
-    //     // Validasi data yang dikirimkan oleh pengguna
-    //     $validatedData = $request->validate([
-    //         'nama' => 'required|string|max:255',
-    //         'jenis_kelamin' => 'required|string|max:255',
-    //         'nomor_telepon' => 'nullable|string|max:255',
-    //         'alamat' => 'nullable|string|max:255',
-    //         'gambar_profil' => 'nullable|image|mimes:jpeg,png,jpg',
-    //     ]);
+        // Jika terdapat pengiriman file gambar baru
+        if ($request->hasFile('profile_img')) {
 
-    //     // Mengambil foto profil lama untuk kemungkinan penghapusan setelah pembaruan
-    //     $oldFoto = $pengguna->gambar_profil;
-    //     $gambarProfil = $request->file('gambar_profil');
+            // Membuat direktori penyimpanan jika belum ada
+            if (!Storage::exists('public/profie')) {
+                Storage::makeDirectory('public/profie');
+            }
 
-    //     // Jika terdapat pengiriman file gambar baru
-    //     if ($request->hasFile('gambar_profil')) {
-
-    //         // Membuat direktori penyimpanan jika belum ada
-    //         if (!Storage::exists('public/profil')) {
-    //             Storage::makeDirectory('public/profil');
-    //         }
-
-    //         // Menyimpan gambar profil baru
-    //         $gambarProfil->store('public/profil');
+            // Menyimpan gambar profil baru
+            $gambarProfil->store('public/profile');
 
 
-    //         // Memperbarui nama file gambar profil
-    //         $validatedData['gambar_profil'] = $gambarProfil->hashName();
+            // Memperbarui nama file gambar profil
+            $validatedData['gambar_profil'] = $gambarProfil->hashName();
 
-    //         // Menghapus gambar profil lama jika ada
-    //         if ($oldFoto) {
-    //             Storage::disk('public/profil')->delete($oldFoto);
-    //         }
-    //     }
+            // Menghapus gambar profil lama jika ada
+            if ($oldFoto) {
+                Storage::disk('public/profile')->delete($oldFoto);
+            }
+        }
 
-    //     // Memperbarui informasi pengguna dengan data yang divalidasi
-    //     $pengguna->update($validatedData);
+        // Memperbarui informasi pengguna dengan data yang divalidasi
+        $user->update($validatedData);
 
-    //     // Mengarahkan kembali ke halaman sebelumnya dengan pesan sukses
-    //     return redirect()->back()->with('success', 'Profil Berhasil diperbarui');
-    // }
+        // Mengarahkan kembali ke halaman sebelumnya dengan pesan sukses
+        return redirect()->back()->with('success', 'Profil Berhasil diperbarui');
+    }
 
     /**
      * Show the form for creating a new resource.
