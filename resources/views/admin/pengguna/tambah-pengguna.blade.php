@@ -9,6 +9,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('user.store') }}">
                         @csrf
+
                         <!--Nama & Nomor Telepon-->
                         <div class="row">
                             <!--Nama-->

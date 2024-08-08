@@ -1,1 +1,3 @@
 - Buat Logo FIC7
+- USER
+    - Fitur Update dan Delete
