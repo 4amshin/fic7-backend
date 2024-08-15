@@ -20,8 +20,10 @@ class ProductResource extends JsonResource
             'description' => $this->description,
             'price' => $this->formatRupiah($this->price),
             'image_url' => $this->image_url,
-            'category_id' => $this->category_id,
-            'user_id' => $this->user_id,
+            // 'category_id' => $this->category_id,
+            'category' => new CategoryResource($this->whenLoaded('category')),
+            // 'user_id' => $this->user_id,
+            'user' => new UserResource($this->whenLoaded('user')),
         ];
     }
 

@@ -1,4 +1,3 @@
 - Buat Logo FIC7
 - Lanjut FIC-5
-    - Api Store Category
-    Masalah: Tidak Tersimpan pada api
+    - Buat CRUD Api Product

@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use Exception;
 use Illuminate\Http\Response;
 
 class CategoryController extends Controller
@@ -27,7 +28,7 @@ class CategoryController extends Controller
     {
         $validatedData = $request->validated();
 
-        if($validatedData) {
+        if ($validatedData) {
             $category = Category::create($validatedData);
             return new CategoryResource($category);
         }
@@ -38,6 +39,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        $category->load('products');
         return new CategoryResource($category);
     }
 
@@ -48,7 +50,7 @@ class CategoryController extends Controller
     {
         $validatedData = $request->validated();
 
-        if($validatedData) {
+        if ($validatedData) {
             $category->update($validatedData);
             return new CategoryResource($category);
         }
@@ -59,8 +61,20 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete();
+        try {
+            // Proses penghapusan kategori
+            $category->delete();
 
-        return response()->json(null, Response::HTTP_NO_CONTENT);
+            // Mengembalikan respon sukses
+            return response()->json([
+                'message' => 'Kategori berhasil dihapus.'
+            ], Response::HTTP_OK);
+        } catch (Exception $e) {
+            // Jika terjadi error, mengembalikan respon gagal
+            return response()->json([
+                'message' => 'Gagal menghapus kategori.',
+                'error' => $e->getMessage(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

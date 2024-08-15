@@ -18,6 +18,7 @@ class CategoryResource extends JsonResource
             'id' => $this->id,
             'name' => ucwords($this->name),
             'description' => $this->description,
+            'products' => ProductResource::collection($this->whenLoaded('products')),
         ];
     }
 }
