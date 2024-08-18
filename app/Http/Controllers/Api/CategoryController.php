@@ -7,11 +7,15 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use App\Policies\CategoryPolicy;
 use Exception;
 use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
+    public function __construct() {
+        $this->authorizeResource(Category::class, 'category');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -26,6 +30,8 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
+        $this->authorize('create', Category::class);
+
         $validatedData = $request->validated();
 
         if ($validatedData) {
@@ -48,6 +54,8 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
+        $this->authorize('update', Category::class);
+
         $validatedData = $request->validated();
 
         if ($validatedData) {
@@ -61,6 +69,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $this->authorize('delete', Category::class);
+
         try {
             // Proses penghapusan kategori
             $category->delete();

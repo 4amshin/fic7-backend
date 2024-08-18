@@ -8,33 +8,45 @@ use App\Http\Resources\LoginResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
     public function login(LoginRequest $request)
-    {
-        $credentials = $request->only('email', 'password');
+{
+        $validatedData = $request->validated();
 
-        if (Auth::attempt($credentials)) {
-            $user = User::where('email', $request->email)->first();
+        // check user base on email
+        $user = User::where('email', $validatedData['email'])->first();
 
-            //delete old token and generate new one
-            $user->tokens()->delete();
-            $token = $user->createToken('token')->plainTextToken;
-
-            //return response
-            return new LoginResource([
-                'token' => $token,
-                'user' => $user,
+        // Message for wrong email
+        if (!$user) {
+            throw ValidationException::withMessages([
+                'email' => ['Email Tidak Sesuai'],
             ]);
-        } else {
-            return response()->json([
-                'message' => 'Login Failed'
-            ], 401);
         }
+
+        // Message for wrong password
+        if (!Hash::check($validatedData['password'], $user->password)) {
+            throw ValidationException::withMessages([
+                'password' => ['Password Tidak Sesuai'],
+            ]);
+        }
+
+        // Hapus token lama dan generate token baru
+        $user->tokens()->delete();
+        $token = $user->createToken('token')->plainTextToken;
+
+        // Return response
+        return new LoginResource([
+            'token' => $token,
+            'user' => $user,
+        ]);
     }
 
-    public function logout(Request $request) {
+    public function logout(Request $request)
+    {
         //delete all token related to the current user
         $request->user()->tokens()->delete();
 

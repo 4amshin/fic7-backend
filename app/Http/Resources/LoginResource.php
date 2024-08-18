@@ -15,9 +15,10 @@ class LoginResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'jwt-token' => $this['token'],
             'name' => $this['user']->name,
             'email' => $this['user']->email,
-            'token' => $this['token'],
+            'role' => $this['user']->role,
         ];
     }
 }
