@@ -13,6 +13,9 @@ use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
+    public function __construct(){
+        $this->authorizeResource(Product::class, 'product');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -27,6 +30,8 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
+        $this->authorize('create', Product::class);
+
         $validatedData = $request->validated();
 
         if ($validatedData) {
@@ -52,6 +57,8 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
+        $this->authorize('update', Product::class);
+
         $validatedData = $request->validated();
 
         if ($validatedData) {
@@ -67,6 +74,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $this->authorize('delete', Product::class);
+
         try {
             $product->delete();
 
