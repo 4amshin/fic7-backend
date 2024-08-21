@@ -1,5 +1,1 @@
-- Buat Logo FIC7
-- Lanjut FIC-5
-    - Buat CRUD Api User
-
-
+- Lanjut FIC6
