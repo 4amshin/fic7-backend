@@ -23,6 +23,24 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
+        User::factory()->create([
+            'name' => 'Asus Official Store',
+            'email' => 'asus@fic7.id',
+            'role' => 'seller',
+            'email_verified_at' => now(),
+            'unhashed_password' => 'password',
+            'password' => Hash::make('password'),
+        ]);
+
+        User::factory()->create([
+            'name' => 'Infinix Official Store',
+            'email' => 'infinix@fic7.id',
+            'role' => 'seller',
+            'email_verified_at' => now(),
+            'unhashed_password' => 'password',
+            'password' => Hash::make('password'),
+        ]);
+
         User::factory(10)->create();
     }
 }

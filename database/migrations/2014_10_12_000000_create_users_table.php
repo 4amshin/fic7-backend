@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->enum('role', ['admin', 'user'])->default('user');
+            $table->enum('role', ['admin', 'seller', 'user'])->default('user');
             $table->string('phone')->nullable();
             $table->string('bio')->nullable();
             $table->string('profile_img')->nullable();
