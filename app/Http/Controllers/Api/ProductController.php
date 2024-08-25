@@ -45,39 +45,39 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(Product $productApi)
     {
-        $product->load(['user', 'category']);
+        $productApi->load(['user', 'category']);
 
-        return new ProductResource($product);
+        return new ProductResource($productApi);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $productApi)
     {
         $this->authorize('update', Product::class);
 
         $validatedData = $request->validated();
 
         if ($validatedData) {
-            $product->update($validatedData);
+            $productApi->update($validatedData);
 
-            $product->load(['user', 'category']);
-            return new ProductResource($product);
+            $productApi->load(['user', 'category']);
+            return new ProductResource($productApi);
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(Product $productApi)
     {
         $this->authorize('delete', Product::class);
 
         try {
-            $product->delete();
+            $productApi->delete();
 
             return response()->json([
                 'message' => 'Product Berhasil Dihapus.'

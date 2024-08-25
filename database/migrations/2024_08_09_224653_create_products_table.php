@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->double('price');
+            $table->unsignedBigInteger('price');
             $table->string('image_url')->nullable();
             $table->foreignIdFor(Category::class);
             $table->foreignIdFor(User::class);

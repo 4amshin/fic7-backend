@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +21,9 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::resource('user', UserController::class);
     Route::post('profile/update/{user}', [UserController::class, 'updateProfile'])->name('profile.update');
     Route::get('profile', [UserController::class, 'profile'])->name('user.profile');
+
+
+    /*----------------------------------------Product--------------------------------------*/
+    Route::resource('product', ProductController::class);
 });
 

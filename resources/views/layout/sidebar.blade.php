@@ -22,4 +22,14 @@
             </a>
         </li>
     @endcan
+
+    @can('seller-only')
+         <!-- Product -->
+         <li class="menu-item {{ Request::is('product*') ? 'active' : '' }}">
+            <a href="{{ route('product.index') }}" class="menu-link">
+                <i class='menu-icon tf-icons bx bxs-package'></i>
+                <div data-i18n="Analytics">Produk</div>
+            </a>
+        </li>
+    @endcan
 </ul>

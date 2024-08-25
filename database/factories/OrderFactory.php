@@ -36,7 +36,7 @@ class OrderFactory extends Factory
      */
     private function generateOrderCode()
     {
-        return strtoupper(Str::random(16));
+        return strtoupper(Str::random(8));
     }
 
     /**

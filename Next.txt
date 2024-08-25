@@ -1,2 +1,8 @@
 - Lanjut FIC6
  -Tanya GPT Untuk Fungsi Upload Multiple Image
+
+
+- BUAT CRUD Product (tabel dll)
+===============
+- API ERROR
+    - total price
