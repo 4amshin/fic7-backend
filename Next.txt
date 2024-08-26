@@ -3,6 +3,4 @@
 
 
 - BUAT CRUD Product (tabel dll)
-===============
-- API ERROR
-    - total price
+=====================
